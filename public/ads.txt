@@ -1,0 +1,5 @@
+# ads.txt — CryptoBinance
+# Este archivo se actualizará cuando Google AdSense sea aprobado.
+# Formato: google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+#
+# PLACEHOLDER — pendiente aprobación de AdSense (Fase 7-MON)
