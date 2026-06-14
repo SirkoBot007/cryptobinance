@@ -8,7 +8,6 @@ import { revalidatePath } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
-  // Verificar el secret para que solo n8n pueda llamar a este endpoint
   const secret = request.nextUrl.searchParams.get('secret')
 
   if (secret !== process.env.REVALIDATE_SECRET) {
@@ -26,15 +25,32 @@ export async function POST(request: NextRequest) {
       revalidatePath(`/blog/${slug}`)
       revalidatePath('/blog')
       revalidatePath('/')
-      return NextResponse.json({ revalidated: true, paths: [`/blog/${slug}`, '/blog', '/'], timestamp: new Date().toISOString() })
+
+      return NextResponse.json({
+        revalidated: true,
+        paths:       [`/blog/${slug}`, '/blog', '/'],
+        timestamp:   new Date().toISOString(),
+      })
     }
+
     if (type === 'all') {
       revalidatePath('/', 'layout')
-      return NextResponse.json({ revalidated: true, paths: ['/ (all)'], timestamp: new Date().toISOString() })
+      return NextResponse.json({
+        revalidated: true,
+        paths:       ['/ (all)'],
+        timestamp:   new Date().toISOString(),
+      })
     }
-    return NextResponse.json({ error: 'Parámetro no válido' }, { status: 400 })
+
+    return NextResponse.json(
+      { error: 'Parámetro "slug" o "type" no válido' },
+      { status: 400 }
+    )
   } catch (error) {
-    return NextResponse.json({ error: 'Error interno', details: String(error) }, { status: 500 })
+    return NextResponse.json(
+      { error: 'Error interno', details: String(error) },
+      { status: 500 }
+    )
   }
 }
 
