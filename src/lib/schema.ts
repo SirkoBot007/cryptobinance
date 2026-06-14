@@ -105,10 +105,10 @@ export function breadcrumbSchema(items: { name: string; href: string }[]) {
     '@context': 'https://schema.org',
     '@type':    'BreadcrumbList',
     itemListElement: items.map((item, i) => ({
-      '@type':   'ListItem',
-      position:  i + 1,
-      name:      item.name,
-      item:      `${SITE_URL}${item.href}`,
+      '@type':    'ListItem',
+      position:   i + 1,
+      name:       item.name,
+      item:       `${SITE_URL}${item.href}`,
     })),
   }
 }
